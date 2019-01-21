@@ -107,6 +107,24 @@ class Zones implements API
     }
 
     /**
+     * Change SSL Setting for Zone
+     * @param  string $zoneID
+     * @return boolean
+     */
+    public function changeZoneSSLSetting(string $zoneID, string $value = 'off')
+    {
+        $response = $this->adapter->patch('zones/' . $zoneID . '/settings/ssl', ['value' => $value]);
+
+        $this->body = json_decode($response->getBody());
+
+        if ($this->body->success) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      *
      * @param string $zoneID
