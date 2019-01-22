@@ -125,21 +125,6 @@ class Zones implements API
     }
 
     /**
-     * Create SSL Certificate
-     * @param  array       $hostnames
-     * @param  int|integer $validity
-     * @param  string      $type
-     * @return object
-     */
-    public function createZoneSSLCertificate(array $hostnames, int $validity = 5475, string $type = 'origin-rsa')
-    {
-        $response = $this->adapter->post('certificates', ['hostnames' => $hostnames, 'requested_validity' => $validity, 'request_type' => $type]);
-
-        $this->body = json_decode($response->getBody());
-        return (object)['result' => $this->body->result, 'result_info' => $this->body->result_info];
-    }
-
-    /**
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      *
      * @param string $zoneID
