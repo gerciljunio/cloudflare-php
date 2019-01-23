@@ -46,6 +46,24 @@ class Zones implements API
         return $this->body->result;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+     *
+     * @param string $zoneId
+     * @return bool
+     */
+    public function deleteZone(string $zoneID): bool
+    {
+        $user = $this->adapter->delete('zones/'.$zoneID);
+        $this->body = json_decode($user->getBody());
+
+        if (isset($this->body->result->id)) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function activationCheck(string $zoneID): bool
     {
         $user = $this->adapter->put('zones/' . $zoneID . '/activation_check');
